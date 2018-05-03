@@ -381,6 +381,9 @@
 #form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg .comment textarea {
   max-width: 100%;
 }
+#form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg .g-recaptcha div {
+  margin: 10px auto;
+}
 #form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg #ajax-respond-success,
 #form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg #ajax-respond-failure {
   position: fixed;
@@ -410,7 +413,7 @@
 #form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg #ajax-respond-failure .center-respond h2 span {
   color: #eb9400;
 }
-#form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg .ajax-loading-process {
+#form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg #ajax-loading-process {
   position: fixed;
   z-index: 10000000;
   top: 0;
@@ -422,7 +425,7 @@
   height: 100%;
   background-color: rgba(0, 125, 200, 0.3);
 }
-#form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg .ajax-loading-process .loader {
+#form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj.add-no-conflict-dfhg84jhf8gj5itfg #ajax-loading-process .loader {
   position: absolute;
   top: calc(50% - 125px);
   left: calc(50% - 125px);

@@ -199,7 +199,7 @@
 		e.preventDefault();
 		var flag_valid = true;
 
-		// flag_valid = Field_input_required_email_number_validation();
+		flag_valid = Field_input_required_email_number_validation();
 
 
 
@@ -245,6 +245,7 @@
 			 if(error != '') {
 			 	$('.attachFile_error').text(error);
 			 	$('.attachFile_error').show();
+			 	alert(error);
 			 	setTimeout( function(){ $('.attachFile_error').hide(); }, 10000);
 			 }
             // Attachment code - CLOSE
@@ -259,25 +260,37 @@
                                                                                  
                                                                                  
 */
-            if(flag_valid == true ){
+            var captcha = grecaptcha.getResponse();
+            if (!captcha.length) {
+				  $('#recaptchaError').text('Please fill the captcha');
+			}else{
+				$('#recaptchaError').text('');
+			}
+
+            if(flag_valid == true  && captcha.length ){
+
             	$('#ajax-loading-process').fadeIn();
-            	// form.submit();
+
             	form = document.getElementById('quote_form');
 
             	var formData = new FormData(form);
 
-            	console.log(formData);
-
             	formData.append("action", "formaspace_form_to_email");
+            	formData.append('g-recaptcha-response', captcha);
+          	
+            	var fileInputElement = document.getElementById('attachFile').files;
+            	var ins = fileInputElement.length;
 
-            	// formData.append("action", "formaspace_form_to_email");
+            	if(ins != 0 ){
 
+            		for (let i = 0; i < ins; i++)
+            		{
 
-            	$.each( $('#attachFile')[0].files, function(i, file) {
-            		 formData.append('userpic[]', file);
-            	});
+            		 	formData.append('attachFile[]', fileInputElement[i].file  );
 
-            	// data_selections  = "action=formaspace_form_to_email&" + data_selections;
+            		}
+            	}
+
 
             	var ajaxPost = $.ajax({
 
@@ -290,7 +303,6 @@
 				        processData: false
 					    //etc.
 				});
-
 
 				ajaxPost.done(function(data, textStatus){
                 	console.log("Ajax Success!");
@@ -306,7 +318,7 @@
                   console.log("Ajax Failure!");
                   $('#ajax-loading-process').fadeOut();
                   $('#ajax-respond-failure').fadeIn();
-                  $('#ajax-respond-success').delay(200).fadeOut();
+                  $('#ajax-respond-failure').delay(200).fadeOut();
                  // setTimeout(function(){window.location.replace("https://formaspace.com/thank-you"); }, 2000);
 
                   // console.log(jqXHR);

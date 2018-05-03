@@ -51,7 +51,7 @@ function filter_function_name_4869( $content_type ){
 
 add_action( 'wp_ajax_formaspace_form_to_email', 'formaspace_form_to_email' );
 add_action( 'wp_ajax_nopriv_formaspace_form_to_email', 'formaspace_form_to_email' );
-// wp_mail( string|array $to, string $subject, string $message, string|array $headers = '', string|array $attachments = array() );
+
 function formaspace_form_to_email(){
 
 
@@ -59,9 +59,10 @@ function formaspace_form_to_email(){
 		// 'mktg@formaspace.com',
 		// 'matt.rundblad@formaspace.com'
 		'mehmet.atesoglu@formaspace.com'
+		// 'Dmitriy_r_f@mail.ru'
 	);
 
-	$subject = 'Installation Request Form ___ ' . (string)date("Y-m-d h:i:sa");
+	$subject = 'Installation Request Form ___(server time:) ' . (string)date("Y-m-d h:i:sa");
 
 	$message = '<h1> Installation Request Form </h1>';
 
@@ -465,7 +466,7 @@ function formaspace_form_to_email(){
 
 		$message .= '<h2>Hours of Accessibility</h2>';
 		$message .= '<h2>';
-		$message .= 'Start hours<';
+		$message .= 'Start hours';
 		$message .='</h2>';
 		$message .='<p>';
 		$message .= $_POST['StartHoursAccessibility'];
@@ -596,7 +597,7 @@ function formaspace_form_to_email(){
 	if (  isset( $_POST['buildingSpecifications'] )  &&  !empty( $_POST['buildingSpecifications'] )  ) {
 
 		$message .= '<h2>';
-		$message .= 'Building Specifications<';
+		$message .= 'Building Specifications';
 		$message .='</h2>';
 		$message .='<p>';
 		switch ( $_POST['buildingSpecifications'] ) {
@@ -1009,25 +1010,28 @@ function formaspace_form_to_email(){
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
 	}
 
+
 	if (  isset( $_FILES['attachFile'] )  &&  !empty( $_FILES['attachFile'] )  ) {
 
 		$error = array();
+		$attachments = array();
 
-		foreach($_FILES['attachFile']  as $file)
+		$_FILES_FORMAT = reArrayFiles( $_FILES['attachFile'] ) ;
+
+		foreach( $_FILES_FORMAT as  $key => $file )
 		{
 
 			$upload_overrides = array( 'test_form' => false ); // DEFAULT
 
-			$movefile = wp_handle_upload( $file, $upload_overrides,  (string)date("Y/m") );
+			$uploadedfile = $file;
+
+			$movefile = wp_handle_upload( $uploadedfile, $upload_overrides,  (string)date("Y/m") );
+
+			
 
 			if ( $movefile && ! isset( $movefile['error'] ) ) {
-
-				$error[] =  "File is valid, and was successfully uploaded.\n";
-
-				var_dump( $movefile );
-
+					$attachments[] = $movefile['file'];
 			} else {
-
 				$error[] =  $movefile['error'];
 
 			}
@@ -1036,15 +1040,30 @@ function formaspace_form_to_email(){
 
 	}
 
-	// print_r($_FILES['attachFile']);
-	print_r((string)date("Y/m"));
-	
-
-	$attachments = array();
-
 	wp_mail( $address_to, $subject, $message, $headers, $attachments);
 
+	foreach($attachments as $path ){
+		unlink($path);
+	}
 
+	print_r($_FILES['attachFile']);
 	die('');
 
+}
+
+
+
+function reArrayFiles(&$file_post) {
+
+    $file_ary = array();
+    $file_count = count($file_post['name']);
+    $file_keys = array_keys($file_post);
+
+    for ($i=0; $i<$file_count; $i++) {
+        foreach ($file_keys as $key) {
+            $file_ary[$i][$key] = $file_post[$key][$i];
+        }
+    }
+
+    return $file_ary;
 }

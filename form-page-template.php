@@ -12,7 +12,7 @@
 
 <div id="form-no-conflict-css-88jgfgkjfgj8jtj4kjg89fgj" class="add-no-conflict-dfhg84jhf8gj5itfg">
 	
-	<div class="ajax-loading-process">
+	<div id="ajax-loading-process">
 		<div class="loader"></div>
 	</div>
 	<div id="ajax-respond-success">
@@ -67,7 +67,7 @@
 
 
 						<div class="tab-content">
-							<div class="tab-pane fade" role="tabpanel"  id="step-1" data-target="0">
+							<div class="tab-pane fade in active" role="tabpanel"  id="step-1" data-target="0">
 								<div class="get-contacts">
 									<div class="row">
 										<h2 class="">Enter Contact Information</h2>
@@ -926,16 +926,9 @@
 
 
 
-							<div class="tab-pane fade in active" role="tabpanel"  id="step-4" data-target="3">
+							<div class="tab-pane fade" role="tabpanel"  id="step-4" data-target="3">
 								<div id="conditional-upstairs-installation" class="upstairs-installation">
 									<div class="row">
-										<!-- 	
-										<div class="checkbox-slider">
-										<label class="no-label">
-											<span class="h2">Upstairs Installation </span>
-												<input type="checkbox" id="height_adjustablility" name="height_adjustablility"><span></span>
-											</label>
-										</div> -->
 										<h2>Upstairs Installation</h2>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
@@ -1101,22 +1094,15 @@
 										</div>
 									</div>
 								</div>
-								<!-- <script src="https://www.google.com/recaptcha/api.js"></script> -->
+								
 								<div class="capcha">
 									<div class="row">
-										<div class="col-xs-12 form-group center">
-											<div class="g-recaptcha" data-sitekey="6LeySDEUAAAAAGbZDEW47IR-U8hJ8dOwn3XLTLdB">
-												<div style="width: 304px; height: 78px; margin: 0 auto;">
-													<div>
-														<!-- <iframe src="https://www.google.com/recaptcha/api2/anchor?k=6LeySDEUAAAAAGbZDEW47IR-U8hJ8dOwn3XLTLdB&amp;co=aHR0cHM6Ly9mb3JtYXNwYWNlLmNvbTo0NDM.&amp;hl=ru&amp;v=v1524685466525&amp;size=normal&amp;cb=jfuvl05b8cqo" width="304" height="78" role="presentation" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe> -->
-													</div>
-													<textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; ">
-														
-													</textarea>
-												</div>
-											</div>
+										<div class="col-xs-12 form-group text-center">
+											<div class="g-recaptcha" data-sitekey="6LeySDEUAAAAAGbZDEW47IR-U8hJ8dOwn3XLTLdB"></div>
+											<div class="text-danger" id="recaptchaError"></div>
 										</div>
 									</div>
+									<script src="https://www.google.com/recaptcha/api.js"></script>
 								</div>
 								<div class="col-sm-12 text-center">
 									<a href="#step-3"  class="prev btn btn-default btn-lg  text-center" aria-controls="step-3" role="tab" data-toggle="tab">Prev</a>
