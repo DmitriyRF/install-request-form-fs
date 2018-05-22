@@ -33,9 +33,9 @@
 
  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
- 	// $('html, body').animate({
- 	// 	scrollTop: $('.tab-pane.active').offset().top - 100
- 	// }, 700);
+ 	$('html, body').animate({
+ 		scrollTop: $('.tab-pane.active').offset().top - 100
+ 	}, 700);
 
  	let progress_part  = $('.tab-pane.active').attr('data-target');
 

@@ -381,7 +381,7 @@
 									</div>
 								</div>
 								<div class="col-sm-12 text-center">
-									<a href="#step-2"  class="next btn btn-default btn-lg  text-center" aria-controls="step-2" role="tab" data-toggle="tab">Next</a>
+									<a href="#step-2"  class="next btn btn-default btn-lg no-transition no-scroll text-center" aria-controls="step-2" role="tab" data-toggle="tab">Next</a>
 								</div>
 							</div>
 
@@ -604,8 +604,8 @@
 								</div>
 
 								<div class="col-sm-12 text-center">
-									<a href="#step-1"  class="prev btn btn-default btn-lg  text-center" aria-controls="step-1" role="tab" data-toggle="tab">Prev</a>
-									<a href="#step-3"  class="next btn btn-default btn-lg  text-center" aria-controls="step-3" role="tab" data-toggle="tab">Next</a>
+									<a href="#step-1"  class="prev btn btn-default btn-lg no-transition no-scroll text-center" aria-controls="step-1" role="tab" data-toggle="tab">Prev</a>
+									<a href="#step-3"  class="next btn btn-default btn-lg no-transition no-scroll text-center" aria-controls="step-3" role="tab" data-toggle="tab">Next</a>
 								</div>
 							</div>
 
@@ -919,8 +919,8 @@
 								</div>
 
 								<div class="col-sm-12 text-center">
-									<a href="#step-2"  class="prev btn btn-default btn-lg  text-center" aria-controls="step-2" role="tab" data-toggle="tab">Prev</a>
-									<a href="#step-4"  class="next btn btn-default btn-lg  text-center" aria-controls="step-4" role="tab" data-toggle="tab">Next</a>
+									<a href="#step-2"  class="prev btn btn-default btn-lg no-transition no-scroll text-center" aria-controls="step-2" role="tab" data-toggle="tab">Prev</a>
+									<a href="#step-4"  class="next btn btn-default btn-lg no-transition no-scroll text-center" aria-controls="step-4" role="tab" data-toggle="tab">Next</a>
 								</div>
 							</div>
 
@@ -1105,8 +1105,8 @@
 									<script src="https://www.google.com/recaptcha/api.js"></script>
 								</div>
 								<div class="col-sm-12 text-center">
-									<a href="#step-3"  class="prev btn btn-default btn-lg  text-center" aria-controls="step-3" role="tab" data-toggle="tab">Prev</a>
-									<button class="btn btn-default btn-lg next text-center" type="button" id="quote-form-submit" name="btn_submit">SEND FOR PRICING</button>
+									<a href="#step-3"  class="prev btn btn-default btn-lg  no-transition no-scroll text-center" aria-controls="step-3" role="tab" data-toggle="tab">Prev</a>
+									<button class="btn btn-default btn-lg next no-transition no-scroll text-center" type="button" id="quote-form-submit" name="btn_submit">SEND FOR PRICING</button>
 								</div>
 							</div>
 

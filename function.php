@@ -12,6 +12,31 @@ function fs_form_template_files() {
 	if ( is_page_template( 'formaspace/form-page-template.php' ) ) {
 
 
+		global $wp_scripts;
+		global $wp_styles;
+
+		$styles_to_keep = array("wp-admin", "admin-bar", "dashicons", "open-sans", "avia-popup-css");
+
+			// loop over all of the registered scripts
+		foreach ($wp_styles->registered as $handle_st => $data)
+		{
+
+			if ( in_array($handle_st, $styles_to_keep) ) continue;
+
+				// remove it
+			// wp_deregister_style($handle_st);
+			// wp_dequeue_style($handle_st);
+		}
+
+
+		foreach ($wp_scripts->registered as $handle_sc => $data)
+		{
+				// remove it
+				// wp_deregister_script($handle_sc);
+			wp_dequeue_script($handle_sc);
+		}
+
+
 
 		wp_enqueue_style( 'fs-bootstrap', get_stylesheet_directory_uri().'/formaspace/assets/bootstrap-3.3.7/css/bootstrap.css', array(), null, 'all'  );
 
@@ -58,8 +83,8 @@ function formaspace_form_to_email(){
 	$address_to = array(
 		// 'mktg@formaspace.com',
 		// 'matt.rundblad@formaspace.com'
-		'mehmet.atesoglu@formaspace.com'
-		// 'Dmitriy_r_f@mail.ru'
+		// 'mehmet.atesoglu@formaspace.com'
+		'Dmitriy_r_f@mail.ru'
 	);
 
 	$subject = 'Installation Request Form ___(server time:) ' . (string)date("Y-m-d h:i:sa");
