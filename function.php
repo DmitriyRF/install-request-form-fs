@@ -2,14 +2,14 @@
 
 //Set in function php
 
-//require ( get_stylesheet_directory() . '/formaspace/function.php' );
+//require ( get_stylesheet_directory() . '/PageTempale_InstallationRequestForm/function.php' );
 
 
 add_action( 'wp_enqueue_scripts', 'fs_form_template_files', 13 );
 function fs_form_template_files() {
 
 
-	if ( is_page_template( 'formaspace/form-page-template.php' ) ) {
+	if ( is_page_template( 'PageTempale_InstallationRequestForm/form-page-template.php' ) ) {
 
 
 		global $wp_scripts;
@@ -38,28 +38,28 @@ function fs_form_template_files() {
 
 
 
-		wp_enqueue_style( 'fs-bootstrap', get_stylesheet_directory_uri().'/formaspace/assets/bootstrap-3.3.7/css/bootstrap.css', array(), null, 'all'  );
+		wp_enqueue_style( 'fs-bootstrap', get_stylesheet_directory_uri().'/PageTempale_InstallationRequestForm/assets/bootstrap-3.3.7/css/bootstrap.css', array(), null, 'all'  );
 
-		wp_enqueue_style( 'fs-own-datetimepicker', get_stylesheet_directory_uri().'/formaspace/assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.css', array('fs-bootstrap'), null, 'all'  );
+		wp_enqueue_style( 'fs-own-datetimepicker', get_stylesheet_directory_uri().'/PageTempale_InstallationRequestForm/assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.css', array('fs-bootstrap'), null, 'all'  );
 
 
 		wp_enqueue_style( 'fs-fontawesome', 'https://use.fontawesome.com/releases/v5.0.10/css/all.css', array(), null, 'all'  );
 
-		wp_enqueue_style( 'fs-styles', get_stylesheet_directory_uri().'/formaspace/fs-stylesheet.css', array('fs-bootstrap'), null, 'all'  );
+		wp_enqueue_style( 'fs-styles', get_stylesheet_directory_uri().'/PageTempale_InstallationRequestForm/fs-stylesheet.css', array('fs-bootstrap'), null, 'all'  );
 
 
 		wp_enqueue_script( 'jquery');
 
 		wp_enqueue_script( 'plupload');
 
-		wp_enqueue_script( 'fs-bootstrap', get_stylesheet_directory_uri() . '/formaspace/assets/bootstrap-3.3.7/js/bootstrap.js', array('jquery'), false, false );
+		wp_enqueue_script( 'fs-bootstrap', get_stylesheet_directory_uri() . '/PageTempale_InstallationRequestForm/assets/bootstrap-3.3.7/js/bootstrap.js', array('jquery'), false, false );
 
 		wp_enqueue_script( 'fs-bootstrap-datetimepicker-moment', 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js', array('jquery', 'fs-bootstrap'), false, false );
 
-		wp_enqueue_script( 'fs-bootstrap-datetimepicker', get_stylesheet_directory_uri() . '/formaspace/assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.min.js', array('jquery', 'fs-bootstrap', 'fs-bootstrap-datetimepicker-moment'), false, false );
+		wp_enqueue_script( 'fs-bootstrap-datetimepicker', get_stylesheet_directory_uri() . '/PageTempale_InstallationRequestForm/assets/bootstrap-datetimepicker-master/bootstrap-datetimepicker.min.js', array('jquery', 'fs-bootstrap', 'fs-bootstrap-datetimepicker-moment'), false, false );
 
 
-		wp_enqueue_script( 'fs-script', get_stylesheet_directory_uri() . '/formaspace/fs-script.js', array('jquery', 'fs-bootstrap'), false, false );
+		wp_enqueue_script( 'fs-script', get_stylesheet_directory_uri() . '/PageTempale_InstallationRequestForm/fs-script.js', array('jquery', 'fs-bootstrap'), false, false );
 
 		wp_localize_script( 'fs-script', "ajax_object", array( 
 			'ajax_url' => admin_url( 'admin-ajax.php') 
@@ -84,7 +84,7 @@ function formaspace_form_to_email(){
 		// 'mktg@formaspace.com',
 		// 'matt.rundblad@formaspace.com'
 		// 'mehmet.atesoglu@formaspace.com'
-		'Dmitriy_r_f@mail.ru'
+		'dmitriy_r_f@mail.ru'
 	);
 
 	$subject = 'Installation Request Form ___(server time:) ' . (string)date("Y-m-d h:i:sa");
@@ -1065,13 +1065,14 @@ function formaspace_form_to_email(){
 
 	}
 
-	wp_mail( $address_to, $subject, $message, $headers, $attachments);
+	$mailResult = wp_mail( $address_to, $subject, $message, $headers, $attachments);
 
 	foreach($attachments as $path ){
 		unlink($path);
 	}
 
-	print_r($_FILES['attachFile']);
+	// print_r($_FILES['attachFile']);
+	print_r($mailResult);
 	die('');
 
 }

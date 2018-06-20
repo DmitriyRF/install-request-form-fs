@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Formaspace
+ * Template Name: Installation Request Form
  * @package Formaspace
  * @subpackage Formaspace
  * @since Formaspace 1.0
