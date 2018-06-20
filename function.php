@@ -1,8 +1,20 @@
-<?php 
-
+<?php
 //Set in function php
 
 //require ( get_stylesheet_directory() . '/PageTempale_InstallationRequestForm/function.php' );
+
+
+	define('MAILGUN_URL', 'https://api.mailgun.net/v3/');
+	define('MAILGUN_KEY', '');
+	define('MAILGUN_EMAIL', 'design.consultant@formaspace.com');
+	define('MAILGUN_NAME', 'Formaspace customer');
+
+
+
+	define('GOOGLE_RECAPCHA_2_URL', 'https://www.google.com/recaptcha/api/siteverify');
+	define('GOOGLE_SECRET_KEY', '');
+
+	
 
 
 add_action( 'wp_enqueue_scripts', 'fs_form_template_files', 13 );
@@ -35,7 +47,24 @@ function fs_form_template_files() {
 				// wp_deregister_script($handle_sc);
 			wp_dequeue_script($handle_sc);
 		}
+		//  ___  __   __                                         ___          __  ___       __   __        ___    
+		// |__  /  \ |__)    |  | | |    |       |__|  /\  \  / |__     |\ | /  \  |     | /__` /__` |  | |__     
+		// |    \__/ |  \    |/\| | |___ |___    |  | /~~\  \/  |___    | \| \__/  |     | .__/ .__/ \__/ |___    
+		                                                                                                       
+		// ___  __      __   ___  ___         ___          __   ___  __           __   __       ___    __         
+		//  |  /  \    |  \ |__  |__  | |\ | |__     |  | /__` |__  |__)    |    /  \ /  `  /\   |  | /  \ |\ |   
+		//  |  \__/    |__/ |___ |    | | \| |___    \__/ .__/ |___ |  \    |___ \__/ \__, /~~\  |  | \__/ | \| 
 
+		$is_mobile_flag = false;
+		if ( strpos($_SERVER['HTTP_USER_AGENT'], 'Mobile') !== false // many mobile devices (all iPhone, iPad, etc.)
+		    || strpos($_SERVER['HTTP_USER_AGENT'], 'Android') !== false
+		    || strpos($_SERVER['HTTP_USER_AGENT'], 'Silk/') !== false
+		    || strpos($_SERVER['HTTP_USER_AGENT'], 'Kindle') !== false
+		    || strpos($_SERVER['HTTP_USER_AGENT'], 'BlackBerry') !== false
+		    || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== false
+		    || strpos($_SERVER['HTTP_USER_AGENT'], 'Opera Mobi') !== false ) {
+		    $is_mobile_flag = true; 
+		}
 
 
 		wp_enqueue_style( 'fs-bootstrap', get_stylesheet_directory_uri().'/PageTempale_InstallationRequestForm/assets/bootstrap-3.3.7/css/bootstrap.css', array(), null, 'all'  );
@@ -62,34 +91,173 @@ function fs_form_template_files() {
 		wp_enqueue_script( 'fs-script', get_stylesheet_directory_uri() . '/PageTempale_InstallationRequestForm/fs-script.js', array('jquery', 'fs-bootstrap'), false, false );
 
 		wp_localize_script( 'fs-script', "ajax_object", array( 
-			'ajax_url' => admin_url( 'admin-ajax.php') 
+			'ajax_url' => admin_url( 'admin-ajax.php'),
+			'is_mobile_flag' => $is_mobile_flag
+
 		));
 
 	} 
 }
 
-
+/*
 add_filter( 'wp_mail_content_type', 'filter_function_name_4869' );
 function filter_function_name_4869( $content_type ){
 	return 'text/html';
 }
-
+*/
 add_action( 'wp_ajax_formaspace_form_to_email', 'formaspace_form_to_email' );
 add_action( 'wp_ajax_nopriv_formaspace_form_to_email', 'formaspace_form_to_email' );
 
 function formaspace_form_to_email(){
 
 
-	$address_to = array(
-		// 'mktg@formaspace.com',
-		// 'matt.rundblad@formaspace.com'
-		// 'mehmet.atesoglu@formaspace.com'
-		'dmitriy_r_f@mail.ru'
-	);
+	$response_return = array();
 
-	$subject = 'Installation Request Form ___(server time:) ' . (string)date("Y-m-d h:i:sa");
+/*
+ __   __   __   __        ___     __   ___  __        __  ___  __            
+/ _` /  \ /  \ / _` |    |__     |__) |__  /  `  /\  |__)  |  /  ` |__|  /\  
+\__> \__/ \__/ \__> |___ |___    |  \ |___ \__, /~~\ |     |  \__, |  | /~~\ 
+                                                                             
+*/
 
-	$message = '<h1> Installation Request Form </h1>';
+	if (  isset( $_POST['g-recaptcha-response'] )  &&  !empty( $_POST['g-recaptcha-response'] )  ) {
+			
+		$gResponseValidation = gRecaptchaValidation( $_POST["g-recaptcha-response"] );
+
+		if($gResponseValidation == 0){
+
+				$response_return = array(
+				    'message'  => 'You are bot!',
+				    'ID'       => 1
+				);
+
+				wp_send_json($response_return);
+
+		}
+	}
+
+
+
+	$to		=	'Dima <dmitriy_r_f@mail.ru>';
+
+	$addresses = 'Mehmet Atesoglu <mehmet.atesoglu@formaspace.com>';
+
+	// $to		.= ',' . $addresses;
+
+/*
+ __  ___       __  ___     __               __          __            ___  __   __        __   ___ 
+/__`  |   /\  |__)  |     |__) |  | | |    |  \ | |\ | / _`     |\/| |__  /__` /__`  /\  / _` |__  
+.__/  |  /~~\ |  \  |     |__) \__/ | |___ |__/ | | \| \__>     |  | |___ .__/ .__/ /~~\ \__> |___ 
+                                                                                                   
+*/
+
+	$message = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+					<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+					<head>
+						<meta charset="UTF-8">
+						<meta http-equiv="X-UA-Compatible" content="IE=edge">
+						<meta name="viewport" content="width=device-width, initial-scale=1">
+						<title>Title</title>
+					</head>
+					<body>';
+
+
+/*
+ __  ___       __  ___    ___       __        ___          __        __   __   ___  __  
+/__`  |   /\  |__)  |      |   /\  |__) |    |__     |  | |__)  /\  |__) |__) |__  |__) 
+.__/  |  /~~\ |  \  |      |  /~~\ |__) |___ |___    |/\| |  \ /~~\ |    |    |___ |  \ 
+*/
+
+
+$message .= '<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%; background:#A19C9A; margin:0; padding:0;">
+				<tr> <!-- 1 -->
+					<td height="100%">
+						<div align="center">
+							<table border="0" cellspacing="0" cellpadding="0" width="600" style="max-width: 600px; width: 100%; background:white; margin:0 auto; padding:0;">';
+
+
+/*
+ __  ___       __  ___          ___       __   ___  __  
+/__`  |   /\  |__)  |     |__| |__   /\  |  \ |__  |__) 
+.__/  |  /~~\ |  \  |     |  | |___ /~~\ |__/ |___ |  \ 
+*/
+$message .='<tr><!-- 2 -->
+				<td style="padding:7px 10px 7px 10px">
+					<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100% margin:0; padding:0;">
+							<tr><!-- 3 -->
+
+								<td width="400" style="width:100%; max-width:400px;padding:0; margin:0;">
+									<a href="https://formaspace.com/" target="_blank" rel="noopener noreferrer" style="display: block;">
+
+											<img border="0" width="292" height="42" style=" display:block;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=Py0CnHnCTn9z_dhTav1zkQ&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9sb2dvLTAxLnBuZw~~&amp;is_https=1" alt="FORMASPACE">
+										</span>
+									</a>
+								</td>
+								<td width="200" style="width:100%; max-width:200px; padding:0; margin:0;">
+									<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100% margin:0; padding:0;">
+										<tr><!-- 4 -->
+											<td>
+												<span style="color:#615E5C; font: 15px Arial, sans-serif; line-height: 30px; -webkit-text-size-adjust:none; display:block;"><b>Call for consultation:</b></span>
+											</td>
+										</tr><!-- 4 -->
+										<tr><!-- 4 -->
+											<td >
+												<table border="0" cellspacing="0" cellpadding="0">
+													<tr><!-- 5 -->
+														<td>
+															<img border="0" width="29" height="29" style=" display:block; margin:0 10px 0 0;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=85cO9yBFr-lLHowWpgCiRg&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9pY28tdGVsLTAxLnBuZw~~&amp;is_https=1">
+														</td>
+														<td>
+															<span style="font-size:13.5pt;font-family:"Arial",sans-serif;color:#0081C3">
+																<a target="_blank" rel=" noopener noreferrer">
+																	<span style="color:#0081C3">
+																		<span class="js-phone-number"><b>800.251.1505</b></span>
+																	</span>
+																</a>
+															</span>
+														</td>
+													</tr><!-- 5 -->
+												</table>
+											</td>
+										</tr><!-- 4 -->
+									</table>
+								</td>
+							</tr><!-- 3 -->
+					</table>
+				</td>
+			</tr><!-- 2 -->';
+/*
+ ___       __              ___       __   ___  __       
+|__  |\ | |  \       |__| |__   /\  |  \ |__  |__)      
+|___ | \| |__/       |  | |___ /~~\ |__/ |___ |  \   
+*/
+
+
+/*
+ __  ___       __  ___          __  
+/__`  |   /\  |__)  |     |__| |__) 
+.__/  |  /~~\ |  \  |     |  | |  \ 
+*/
+$message .='<tr><!-- 2 -->
+				<td style="background:#CCCCCC;padding:0;height:1px width: 100%;">
+						<span style="font-size:1.0; display:block;height:1px; width:100;"></span>
+				</td>
+			</tr>';
+/*                                    
+ ___       __           __          
+|__  |\ | |  \    |__| |__)         
+|___ | \| |__/    |  | |  \         
+                              
+*/
+$message .='<tr><!-- 2 -->
+				<td>';
+
+/*
+ __  ___       __  ___     __   __   __      
+/__`  |   /\  |__)  |     |__) /  \ |  \ \ / 
+.__/  |  /~~\ |  \  |     |__) \__/ |__/  |  
+*/
+
 
 	if (  isset( $_POST['inputCompany'] )  &&  !empty( $_POST['inputCompany'] )  ) {
 
@@ -109,6 +277,7 @@ function formaspace_form_to_email(){
 		$message .='</h2>';
 		$message .='<p>';
 		$message .= $_POST['inputFirstName'];
+		$customerFirstName = $_POST['inputFirstName'];
 		$message .='</p>';
 
 	}
@@ -119,6 +288,7 @@ function formaspace_form_to_email(){
 		$message .='</h2>';
 		$message .='<p>';
 		$message .= $_POST['inputLastName'];
+		$customerLastName = $_POST['inputLastName'];
 		$message .='</p>';
 
 	}
@@ -139,6 +309,7 @@ function formaspace_form_to_email(){
 		$message .='</h2>';
 		$message .='<p>';
 		$message .= $_POST['inputEmail'];
+		$customerEmail = $_POST['inputEmail'];
 		$message .='</p>';
 
 	}
@@ -1029,7 +1200,245 @@ function formaspace_form_to_email(){
 
 	}
 
-	$headers = array('Content-Type: text/html; charset=UTF-8','mehmet.atesoglu@formaspace.com');
+/*
+ ___       __      __   __   __              
+|__  |\ | |  \    |__) /  \ |  \ \ /         
+|___ | \| |__/    |__) \__/ |__/  |          
+                                         
+*/
+
+$message .='	</td>
+			</tr>';
+/*
+ __  ___       __  ___     ___  __   __  ___  ___  __  
+/__`  |   /\  |__)  |     |__  /  \ /  \  |  |__  |__) 
+.__/  |  /~~\ |  \  |     |    \__/ \__/  |  |___ |  \ 
+*/
+$message .= '<tr>
+				<td style="background:#FAFAFA;padding:7px 10px 7px 10px">
+					<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100%; padding:0; margin:0;">
+						
+							<tr>
+								<td style="padding:0in 0in 5.25pt 0in">
+									<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100% padding:0; margin:0;">
+										
+											<tr>
+												<td width="83" style="width:62.25pt;padding:0">
+													<table border="0" cellspacing="0" cellpadding="0"  style="padding:0; margin:0; width:100%;">
+														
+															<tr>
+																<td style="padding:0 0 0 2px">
+																	<a href="https://www.linkedin.com/company/447373?utm_source=pardot&amp;utm_medium=email&amp;utm_campaign=reminder-universities-041216" target="_blank" rel=" noopener noreferrer" style="display: block;">
+																		<img border="0" width="19" height="19" style="display: block;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=lmhBJNsF9bzP6d9r6EK1uQ&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9pY28tbGlua2VkaW4ucG5n&amp;is_https=1" alt="in">
+																	</a>
+																</td>
+
+																<td style="padding:0 0 0 2px">
+																	<a href="https://www.facebook.com/Formaspace-23103602282/?utm_source=pardot&amp;utm_medium=email&amp;utm_campaign=reminder-universities-041216" target="_blank" rel=" noopener noreferrer" style="display: block;">
+																		<img border="0" width="19" height="19" style="display: block;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=lysZlRc8YpYR_Z1h_lm4zw&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9pY28tZmFjZWJvb2sucG5n&amp;is_https=1" alt="fb">
+																	</a>
+																</td>
+
+																<td style="padding:0 0 0 2px">
+																	<a href="https://www.pinterest.com/formaspace/?utm_source=pardot&amp;utm_medium=email&amp;utm_campaign=reminder-universities-041216" target="_blank" rel=" noopener noreferrer" style="display: block;">
+																		<img border="0" width="20" height="19" style="display: block;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=A8v3A6RNGbs6NM-oT6LBSw&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9pY28tcGludGVyZXN0LnBuZw~~&amp;is_https=1" alt="pi">
+																	</a>
+																</td>
+															</tr>
+														
+													</table>
+												</td>
+
+												<td width="4" style="padding: 0 5px 0 5px;">
+													<table class="MsoNormalTable_mailru_css_attribute_postfix" border="0" cellspacing="0" cellpadding="0">
+															<tr style="height:17.25pt">
+																<td width="1" style="width:.75pt;background:#A29C9B;padding:0in 0in 0in 0in;height:17.25pt">
+																	<p>&nbsp;</p>
+																</td>
+															</tr>
+													</table>
+												</td>    
+
+												<td width="85" style="width:63.75pt;padding:0">
+													<table border="0" cellspacing="0" cellpadding="0">
+														
+															<tr>
+																<td style="padding:0in 0in 0in 0in">
+																	<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%  padding:0; margin:0;">
+																			<tr>
+																				<td width="22" style="width:16.5pt; padding:0 5px 0 0">
+																					<img border="0" width="19" height="19" style="display: block;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=bWuYqbTj8Ta60d4vPu9LWA&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9pY28tdGVsLTAyLnBuZw~~&amp;is_https=1">
+																				</td>
+																				<td style="padding:0">
+																					<a target="_blank" rel=" noopener noreferrer" style="font: 11px "Arial",sans-serif; color:#615E5C; display: block;">
+																						<b>800.251.1505</b>
+																					</a>
+																				</td>
+																			</tr>
+																	</table>
+																</td>
+															</tr>
+														
+													</table>
+												</td>
+
+												<td width="4" style="padding: 0 5px 0 5px;">
+													<table class="MsoNormalTable_mailru_css_attribute_postfix" border="0" cellspacing="0" cellpadding="0">
+															<tr style="height:17.25pt">
+																<td width="1" style="width:.75pt;background:#A29C9B;padding:0in 0in 0in 0in;height:17.25pt">
+																	<p>&nbsp;</p>
+																</td>
+															</tr>
+													</table>
+												</td>
+
+												<td width="203" style="width:152.25pt;padding:0in 0in 0in 0in">
+													<table border="0" cellspacing="0" cellpadding="0">
+														
+															<tr>
+																<td style="padding:0in 0in 0in 0in">
+																	<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%  padding:0; margin:0;">
+																		
+																			<tr>
+																				<td width="22" style="width:16.5pt;padding:0 5px 0 0">
+																					<img border="0" width="19" height="19" style="display: block;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=tx9CcXKl1gxGKLSjbc1qLw&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9pY28tbWFpbC5wbmc~&amp;is_https=1">
+																				</td>
+																				<td style="padding:0">
+																					<a href="//e.mail.ru/compose/?mailto=mailto%3adesign.consultant@formaspace.com" target="_blank" rel=" noopener noreferrer" style="font:9px "Arial",sans-serif; line-height:12px; color:#615E5C; display: block;">
+																						<b>design.consultant@formaspace.com</b>
+																					</a>
+																				</td>
+																			</tr>
+																		
+																	</table>
+																</td>
+															</tr>
+					
+													</table>
+												</td>
+
+												<td width="4" style="padding: 0 5px 0 5px;">
+													<table class="MsoNormalTable_mailru_css_attribute_postfix" border="0" cellspacing="0" cellpadding="0">
+															<tr style="height:17.25pt">
+																<td width="1" style="width:.75pt;background:#A29C9B;padding:0in 0in 0in 0in;height:17.25pt">
+																	<p>&nbsp;</p>
+																</td>
+															</tr>
+													</table>
+												</td>
+
+												<td width="164" style="width:123.0pt;padding:0in 0in 0in 0in">
+													<table border="0" cellspacing="0" cellpadding="0" style="padding:0; margin:0;">
+														
+															<tr>
+																<td style="padding:0in 0in 0in 0in">
+																	<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%  padding:0; margin:0;">
+																		
+																			<tr>
+																				<td width="20" style="width:15.0pt;padding:0in 0in 0in 0in">
+																					<img border="0" width="14" height="24" style="display: block;" src="https://proxy.imgsmail.ru?email=dmitriy_r_f%40mail.ru&amp;e=1528604770&amp;h=x3YpfI02IlCMTTceVB4hrQ&amp;url171=Zm9ybWFzcGFjZS5jb20vd3AtY29udGVudC91cGxvYWRzL21hcmt1cC9pY28tcG9pbnQucG5n&amp;is_https=1">
+																				</td>
+																				<td style="padding:0in 0in 0in 0in">
+																					<span style="line-height:9.75pt;"><b><span style="font-size:7.5pt;font-family:"Arial",sans-serif;color:#615E5C">Made in the USA</span></b><span style="font-size:7.5pt;font-family:"Arial",sans-serif;color:#615E5C">1100 E Howard Lane # 400 Austin, TX 78753</span></spanp>
+																				</td>
+																			</tr>
+																		
+																	</table>
+																</td>
+															</tr>
+														
+													</table>
+												</td>
+											</tr>
+										
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding:0in 0in 9.0pt 0in">
+									<div align="center">
+										<table border="0" cellspacing="0" cellpadding="0" width="450" style="width:337.5pt  padding:0; margin:0;">
+											
+												<tr>
+													<td style="padding:0in 0in 0in 0in">
+														<span style="line-height:9.75pt;"><b><span style="font-size:7.5pt;font-family:"Arial",sans-serif;color:#615E5C">This message was sent by
+															<a href="https://formaspace.com/upgrade-your-lab-and-classroom/?utm_source=pardot&amp;utm_medium=email&amp;utm_campaign=reminder-universities-041216&amp;utm_term=footer" target="_blank" rel=" noopener noreferrer">
+															Formaspace, LP</a>. Parts of this message may contain promotional information about Formaspace and its products.
+															<i>Copyright </i></span></b><b><i><span style="font-size:7.5pt;font-family:"Open Sans";color:#615E5C">Ã‚Â©</span></i></b><b><i><span style="font-size:7.5pt;font-family:"Arial",sans-serif;color:#615E5C"> 2016, All rights reserved.</span></i></b><b><span style="font-size:7.5pt;font-family:"Arial",sans-serif;color:#615E5C"></span></b></p>
+														</td>
+													</tr>
+												
+											</table>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td style="padding:0in 0in 0in 0in">
+										<div align="center">
+											<table border="0" cellspacing="0" cellpadding="0" style="padding:0; margin:0;">
+												
+													<tr>
+														<td style="padding:0in 0in 0in 0in">
+															<span style="line-height:9.75pt;"><b><span style="font-size:7.5pt;font-family:"Arial",sans-serif;color:#72D0EB"><a target="_blank" rel=" noopener noreferrer">Unsubscribe
+															</a></span></b></span>
+														</td>
+														<td style="padding:0in 8.25pt 0in 8.25pt">
+															<table border="0" cellspacing="0" cellpadding="0" style="padding:0; margin:0;">
+																
+																	<tr style="height:12.75pt">
+																		<td width="1" style="width:.75pt;background:#A29C9B;padding:0in 0in 0in 0in;height:12.75pt">
+																			<span style="line-height:0%"><span style="font-size:1.0pt;color:#A29C9B">.</span></span>
+																		</td>
+																	</tr>
+																
+															</table>
+														</td>
+														<td style="padding:0in 0in 0in 0in">
+															<span style="line-height:9.75pt;"><b><span style="font-size:7.5pt;font-family:"Arial",sans-serif;color:#72D0EB"><a target="_blank" rel=" noopener noreferrer">View in browser
+															</a></span></b></span>
+														</td>
+													</tr>
+												
+											</table>
+										</div>
+									</td>
+								</tr>
+							
+						</table>
+					</td>
+				</tr>';
+/*
+ ___       __      ___  __   __  ___  ___  __          
+|__  |\ | |  \    |__  /  \ /  \  |  |__  |__)         
+|___ | \| |__/    |    \__/ \__/  |  |___ |  \         
+                                                       
+*/
+/*
+ ___       __     ___       __        ___          __        __   __   ___  __  
+|__  |\ | |  \     |   /\  |__) |    |__     |  | |__)  /\  |__) |__) |__  |__) 
+|___ | \| |__/     |  /~~\ |__) |___ |___    |/\| |  \ /~~\ |    |    |___ |  \ 
+*/
+
+$message .= '				</table>
+						</div> 
+					</td>
+				</tr>
+			</table>';
+
+
+
+/*
+ ___       __      __               __          __            ___  __   __        __   ___ 
+|__  |\ | |  \    |__) |  | | |    |  \ | |\ | / _`     |\/| |__  /__` /__`  /\  / _` |__  
+|___ | \| |__/    |__) \__/ | |___ |__/ | | \| \__>     |  | |___ .__/ .__/ /~~\ \__> |___ 
+                                                                                           
+*/
+
+
+$message .= '	</body>
+			</html>';
+
+
 
 	if ( ! function_exists( 'wp_handle_upload' ) ) {
 		require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -1063,19 +1472,105 @@ function formaspace_form_to_email(){
 
 		}
 
+		$response_return = array(
+		    'message'  => $error,
+		    'ID'       => 1
+		);
+
 	}
 
-	$mailResult = wp_mail( $address_to, $subject, $message, $headers, $attachments);
 
-	foreach($attachments as $path ){
-		unlink($path);
-	}
+	$subject = 'Installation Request Form ___(server time:) ' . (string)date("Y-m-d h:i:sa");
 
-	// print_r($_FILES['attachFile']);
-	print_r($mailResult);
+	$headers = array('Content-Type: text/html; charset=UTF-8','mehmet.atesoglu@formaspace.com');
+
+	$tag	=	'InstallationRequest';
+
+	$response_return['mailgun_team'] =  sendmailbymailgun($to,$subject,$message,$tag,$attachments);
+
+	$response_return['attachments'] =  $attachments;
+
+	$toCustomer = $customerFirstName .' '. $customerLastName .' <'. $customerEmail .'>';
+
+	// $response_return['mailgun_customer'] =  sendmailbymailgun($toCustomer,$subject,$message,$tag,$attachments);
+
+	// print_r( $attachments );
+
+	// foreach($attachments as $deletion_file ){
+
+	// 	unlink($deletion_file); //delete file
+	// }
+
+	wp_send_json($response_return);
+	
+	
 	die('');
+}
+
+
+
+
+function sendmailbymailgun($to,$subject,$html,$tag,$attachments){
+
+    $array_data = array(
+		'from'=> MAILGUN_NAME .'<'.MAILGUN_EMAIL.'>',
+		'to'=>$to,
+		'subject'=>$subject,
+		'html'=>$html,
+		'o:tracking'=>'yes',
+		'o:tracking-clicks'=>'yes',
+		'o:tracking-opens'=>'yes',
+		'o:tag'=>$tag,
+    );
+
+    $session = curl_init(MAILGUN_URL.'/messages');
+    curl_setopt($session, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+  	curl_setopt($session, CURLOPT_USERPWD, 'api:'.MAILGUN_KEY);
+    curl_setopt($session, CURLOPT_POST, true);
+    curl_setopt($session, CURLOPT_POSTFIELDS, $array_data);
+    curl_setopt($session, CURLOPT_HEADER, false);
+    curl_setopt($session, CURLOPT_ENCODING, 'UTF-8');
+    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($session, CURLOPT_SSL_VERIFYPEER, false);
+
+    // curl_setopt($session, CURLOPT_POSTFIELDS, $attachments);
+
+    $response = curl_exec($session);
+    curl_close($session);
+
+    $results = json_decode($response, true);
+
+    return $results;
+}
+
+
+function gRecaptchaValidation($gResponse){
+
+	$data = array(
+
+		'secret' => GOOGLE_SECRET_KEY,
+		'response' => $gResponse
+	);
+	$options = array(
+		'http' => array (
+			'method' => 'POST',
+			'content' => http_build_query($data)
+		)
+	);
+	$context  = stream_context_create($options);
+
+	$verify = file_get_contents( GOOGLE_RECAPCHA_2_URL , false, $context);
+
+	$captcha_success=json_decode($verify);
+
+	if ($captcha_success->success==false) {
+		return 0;
+	} else if ($captcha_success->success==true) {
+		return 1;
+	}
 
 }
+
 
 
 

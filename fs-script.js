@@ -4,6 +4,72 @@
 	"use strict";
 
 	$(document).ready( function(){
+/*
+               _                   _       _                                                                                                                                       
+              | |                 | |     | |                                                                                                                                      
+  ___    ___  | |_      __ _    __| |   __| |  _ __    ___   ___   ___                                                                                                             
+ / __|  / _ \ | __|    / _` |  / _` |  / _` | | '__|  / _ \ / __| / __|                                                                                                            
+ \__ \ |  __/ | |_    | (_| | | (_| | | (_| | | |    |  __/ \__ \ \__ \                                                                                                            
+ |___/  \___|  \__|    \__,_|  \__,_|  \__,_| |_|     \___| |___/ |___/                                                                                                            
+                                                                                                                                                                                   
+                                                                                                                                                                                   
+   __                                                       _      _                                                                                                               
+  / _|                                                     | |    (_)                                                                                                              
+ | |_   _ __    ___    _ __ ___       ___    ___     ___   | | __  _    ___   ___                                                                                                  
+ |  _| | '__|  / _ \  | '_ ` _ \     / __|  / _ \   / _ \  | |/ / | |  / _ \ / __|                                                                                                 
+ | |   | |    | (_) | | | | | | |   | (__  | (_) | | (_) | |   <  | | |  __/ \__ \                                                                                                 
+ |_|   |_|     \___/  |_| |_| |_|    \___|  \___/   \___/  |_|\_\ |_|  \___| |___/                                                                                                 
+                                                                                                                                                                                   
+                                                                                                                                                                                   
+                            _      _____                  _____   _____      _____           _                   _     _                             _                   _         
+                           | |    / ____|                |_   _| |  __ \    |  __ \         | |                 | |   (_)                           | |                 (_)        
+  _ __     ___    ___    __| |   | |  __    ___    ___     | |   | |__) |   | |  | |   ___  | |_    ___    ___  | |_   _    ___    _ __      _ __   | |  _   _    __ _   _   _ __  
+ | '_ \   / _ \  / _ \  / _` |   | | |_ |  / _ \  / _ \    | |   |  ___/    | |  | |  / _ \ | __|  / _ \  / __| | __| | |  / _ \  | '_ \    | '_ \  | | | | | |  / _` | | | | '_ \ 
+ | | | | |  __/ |  __/ | (_| |   | |__| | |  __/ | (_) |  _| |_  | |        | |__| | |  __/ | |_  |  __/ | (__  | |_  | | | (_) | | | | |   | |_) | | | | |_| | | (_| | | | | | | |
+ |_| |_|  \___|  \___|  \__,_|    \_____|  \___|  \___/  |_____| |_|        |_____/   \___|  \__|  \___|  \___|  \__| |_|  \___/  |_| |_|   | .__/  |_|  \__,_|  \__, | |_| |_| |_|
+                                                                                                                                            | |                   __/ |            
+                                                                                                                                            |_|                  |___/             
+*/
+
+		setTimeout(function() {
+
+	        var address_locator = JSON.parse(readCookie('location'));
+
+	        if(address_locator.status == 'success') {
+
+		        console.log(address_locator.country);
+		        console.log(address_locator.countryCode);
+		        console.log(address_locator.regionName);
+		        console.log(address_locator.city);
+		        console.log(address_locator.zip);
+
+	    	    var mobile = (ajax_object.is_mobile_flag == "") ? '' : 'true';
+
+	    	    console.log(mobile);
+
+	    	    if(address_locator.country != 'United States' && address_locator.country != 'Canada') {
+	    	        $('#inputCountry').append('<option value="' + address_locator.country + '" data-state="other">' + address_locator.country + '</option>');
+	    	    }
+	    	    $('#inputCountry').val(address_locator.countryCode).change();
+	    	    $('#inputCity').val(mobile ? '' : address_locator.city);
+
+	    	    if(address_locator.country == 'United States') {
+	    	        // $('.us select').attr('name', 'inputState');
+	    	        $('.us select').val(address_locator.regionName).change();
+	    	    } else if(address_locator.country == 'Canada') {
+	    	        // $('.ca select').attr('name', 'inputState');
+	    	        $('.ca select').val(address_locator.regionName).change();
+	    	    } else {
+	    	        $('#inputState').val(address_locator.regionName);
+	    	        // $('.other select').attr('name', 'inputState');
+	    	    }
+
+	    	    $('#inputZipCode').val(mobile ? '' : address_locator.zip);
+	    	}
+
+
+
+    	}, 1000);
 
 /*
   _______           _                                     _   _                   
@@ -267,7 +333,7 @@
 				$('#recaptchaError').text('');
 			}
 
-            if(flag_valid == true  && captcha.length ){
+            if(flag_valid == true  && captcha.length){
 
             	$('#ajax-loading-process').fadeIn();
 
@@ -276,7 +342,7 @@
             	var formData = new FormData(form);
 
             	formData.append("action", "formaspace_form_to_email");
-            	formData.append('g-recaptcha-response', captcha);
+            	//formData.append('g-recaptcha-response', captcha);
           	
             	var fileInputElement = document.getElementById('attachFile').files;
             	var ins = fileInputElement.length;
@@ -316,6 +382,7 @@
                 // What to do upon error
                 ajaxPost.fail(function(jqXHR, textStatus){
                   console.log("Ajax Failure!");
+                  console.log(jqXHR);
                   $('#ajax-loading-process').fadeOut();
                   $('#ajax-respond-failure').fadeIn();
                   $('#ajax-respond-failure').delay(200).fadeOut();
@@ -469,6 +536,33 @@ function show_Additional_Content_Radio( conditional_id_wrap , posit_resp){
  	
 
  }
+
+
+
+     function readCookie(name) {
+      
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length); // we can use trim here 
+
+            if (c.lastIndexOf(nameEQ) == 0){
+
+      				if(c.indexOf('-') != -1 && name === 'source'){
+
+      					return c.slice(nameEQ.length,c.indexOf('-')).trim();
+      				
+      				} else {
+
+      					return c.substring(nameEQ.length,c.length);
+      				
+      				}
+		        }
+        }
+        return null;
+    }
 
 
 })(jQuery);

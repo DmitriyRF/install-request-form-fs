@@ -166,7 +166,9 @@
 								</div>
 								<div class="delivery-date">
 									<div class="row">
-										<h2>Delivery Date</h2>
+										<div class="col-xs-12">
+											<h2>Delivery Date</h2>
+										</div>
 										<div class="calenderPicker">
 											<div class="col-xs-12 col-sm-6">
 												<label for="deliverydateNotBefore">Install cannot occur before:</label>
@@ -228,7 +230,9 @@
 								</div>
 								<div id="conditional-non-business-hours-can-be" class="non-business-hours">
 									<div class="row">
-										<h2>Can we be on site during non-business hours?</h2>
+										<div class="col-xs-12">
+											<h2>Can we be on site during non-business hours?</h2>
+										</div>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
@@ -270,7 +274,9 @@
 								</div>
 								<div class="primary-point-of-contact">
 									<div class="row">
-										<h2>Primary Point of Contact</h2>
+										<div class="col-xs-12">
+											<h2>Primary Point of Contact</h2>
+										</div>
 										<div class="textPicker-line">
 											<div class="col-xs-12 col-sm-6">
 												<label for="primaryName">Name</label>
@@ -302,7 +308,9 @@
 								</div>
 								<div id="conditional-primaryContactSignOff" class="contact-sign-off-to-instalation">
 									<div class="row">
-										<h2>Can the Primary Point of Contact sign off on the installation?</h2>
+										<div class="col-xs-12">
+											<h2>Can the Primary Point of Contact sign off on the installation?</h2>
+										</div>
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
@@ -395,8 +403,8 @@
 											<div class="form-group">
 												<label class="sr-only" for="inputCountry">Country</label>
 
-												<select class="form-control" name="inputCountry" id="inputCountry" val="">
-													<option value="US" selected  data-state="us">United States</option>
+												<select class="form-control" selected name="inputCountry" id="inputCountry" val="">
+													<option value="US"   data-state="us">United States</option>
 													<option value="CA" data-state="ca">Canada</option>
 													<option value="other" data-state="other">Other</option>
 												</select>
@@ -698,9 +706,6 @@
 									</div>
 								</div>
 
-								<div class="additional-formaspace-data">
-								</div>
-
 								<div id="conditional-full-length-semi-exist" class="full-length-semi-exist">
 									<div class="row">
 										<h2>Is there is clearance to receive a full length (54’) semi?</h2>								
@@ -851,7 +856,7 @@
 											<label for="numberOfRooms">Number of rooms:</label>
 										</div>
 										<div class="col-xs-12 col-sm-6">
-											<input type="number" class="form-control" name="numberOfRooms" id="numberOfRooms" placeholder="Room number" value="">
+											<input type="number" min="2" class="form-control" name="numberOfRooms" id="numberOfRooms" placeholder="Room number" value="" oninput="validity.valid||(value='');">
 										</div>
 										<div id="conditional-next-each-other-rooms">
 											<h2 class="mt-0" >Are the rooms next to each other?</h2>
@@ -987,8 +992,9 @@
 												<input type="text" name="elevatorAccessSpecification" id="elevatorAccessSpecification" placeholder="Specification" value="" >
 											</div>
 										</div>
-										<h2>Interior size of elevator</h2>
-
+										<div class="col-xs-12">
+											<h2>Interior size of elevator</h2>
+										</div>
 										<div class="col-xs-12 col-sm-6">
 											<label for="elevatorInteriorLenght">Length:</label>
 										</div>
@@ -1019,9 +1025,9 @@
 										<div class="col-xs-12 col-sm-6">
 											<input type="text"  class="form-control" name="elevatorInteriorDistanceUpstairs" id="elevatorInteriorDistanceUpstairs" placeholder="Distance" value="" >
 										</div>
-
-										<h2>Stair Specifications:</h2>
-
+										<div class="col-xs-12">
+											<h2>Stair Specifications:</h2>
+										</div>
 										<div class="col-xs-12 col-sm-6">
 											<label for="stairDistanceUploadingToStairs">Distance from unloading point to stairs:</label>
 										</div>
@@ -1098,7 +1104,8 @@
 								<div class="capcha">
 									<div class="row">
 										<div class="col-xs-12 form-group text-center">
-											<div class="g-recaptcha" data-sitekey="6LeySDEUAAAAAGbZDEW47IR-U8hJ8dOwn3XLTLdB"></div>
+											<div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+											<!-- <div class="g-recaptcha" data-sitekey="6LeySDEUAAAAAGbZDEW47IR-U8hJ8dOwn3XLTLdB"></div> -->
 											<div class="text-danger" id="recaptchaError"></div>
 										</div>
 									</div>
