@@ -451,10 +451,9 @@ function show_Additional_Content_Radio( conditional_id_wrap , posit_resp){
 
 		$( '#' + conditional_id_wrap ).css('color', '№0081c5');
 
-		
 		$(conditional_input).on('click', function(){
 
-			if( $(this).val()  ===  posit_resp ){
+			if( $(this).val().toLowerCase()  ===  posit_resp ){
 
 				$( show_additional_content_class ).fadeIn('slow');
 			}

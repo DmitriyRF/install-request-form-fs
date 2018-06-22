@@ -111,7 +111,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="isFSmanufactured" value="yes" >
+													<input type="radio" class="form-control" name="isFSmanufactured" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -119,7 +119,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="isFSmanufactured" value="no" >
+													<input type="radio" class="form-control" name="isFSmanufactured" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -236,7 +236,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="nonBusinessHours" value="yes" >
+													<input type="radio" class="form-control" name="nonBusinessHours" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -245,7 +245,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="nonBusinessHours" value="no" >
+													<input type="radio" class="form-control" name="nonBusinessHours" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -314,7 +314,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="primaryContactSignOff" value="yes" >
+													<input type="radio" class="form-control" name="primaryContactSignOff" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -322,7 +322,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="primaryContactSignOff" value="no" >
+													<input type="radio" class="form-control" name="primaryContactSignOff" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -484,7 +484,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="access_to_your_facility" value="yes" >
+													<input type="radio" class="form-control" name="access_to_your_facility" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -492,7 +492,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="access_to_your_facility" value="no" >
+													<input type="radio" class="form-control" name="access_to_your_facility" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -519,7 +519,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="access_your_facility_photo" value="yes" >
+													<input type="radio" class="form-control" name="access_your_facility_photo" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -527,7 +527,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="access_your_facility_photo" value="no" >
+													<input type="radio" class="form-control" name="access_your_facility_photo" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -574,7 +574,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="forkliftAvailable" value="yes" >
+													<input type="radio" class="form-control" name="forkliftAvailable" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -582,7 +582,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="forkliftAvailable" value="no" >
+													<input type="radio" class="form-control" name="forkliftAvailable" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -595,7 +595,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="stagingArea" value="yes" >
+													<input type="radio" class="form-control" name="stagingArea" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -603,7 +603,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="stagingArea" value="no" >
+													<input type="radio" class="form-control" name="stagingArea" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -657,7 +657,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="loadingDockAccess" value="yes" >
+													<input type="radio" class="form-control" name="loadingDockAccess" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -665,7 +665,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="loadingDockAccess" value="no" >
+													<input type="radio" class="form-control" name="loadingDockAccess" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -679,7 +679,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="dockStandardIs48" value="yes" >
+													<input type="radio" class="form-control" name="dockStandardIs48" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -687,7 +687,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="dockStandardIs48" value="no" >
+													<input type="radio" class="form-control" name="dockStandardIs48" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -712,7 +712,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="isSemiClearance" value="yes" >
+													<input type="radio" class="form-control" name="isSemiClearance" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -720,7 +720,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="isSemiClearance" value="no" >
+													<input type="radio" class="form-control" name="isSemiClearance" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -733,7 +733,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="placeTounload" value="yes" >
+													<input type="radio" class="form-control" name="placeTounload" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -741,7 +741,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="placeTounload" value="no" >
+													<input type="radio" class="form-control" name="placeTounload" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -755,7 +755,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="buildingAccesDoorway" value="yes" >
+													<input type="radio" class="form-control" name="buildingAccesDoorway" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -763,7 +763,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="buildingAccesDoorway" value="no" >
+													<input type="radio" class="form-control" name="buildingAccesDoorway" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -788,7 +788,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="elevatorReservations" value="yes" >
+													<input type="radio" class="form-control" name="elevatorReservations" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -796,7 +796,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="elevatorReservations" value="no" >
+													<input type="radio" class="form-control" name="elevatorReservations" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -863,7 +863,7 @@
 											<div class="col-xs-12 col-sm-6">
 												<div class="form-group">
 													<label>
-														<input type="radio" class="form-control" name="nextEachotherRooms" value="yes" >
+														<input type="radio" class="form-control" name="nextEachotherRooms" value="Yes" >
 														<span>Yes</span>
 													</label>
 												</div>
@@ -871,7 +871,7 @@
 											<div class="col-xs-12 col-sm-6">
 												<div class="form-group">
 													<label>
-														<input type="radio" class="form-control" name="nextEachotherRooms" value="no" >
+														<input type="radio" class="form-control" name="nextEachotherRooms" value="No" >
 														<span>No</span>
 													</label>
 												</div>
@@ -938,7 +938,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="upstairsInstallation" value="yes" >
+													<input type="radio" class="form-control" name="upstairsInstallation" value="Yes" >
 													<span>Yes</span>
 												</label>
 											</div>
@@ -946,7 +946,7 @@
 										<div class="col-xs-12 col-sm-6">
 											<div class="form-group">
 												<label>
-													<input type="radio" class="form-control" name="upstairsInstallation" value="no" >
+													<input type="radio" class="form-control" name="upstairsInstallation" value="No" >
 													<span>No</span>
 												</label>
 											</div>
@@ -969,7 +969,7 @@
 											<div class="col-xs-12 col-sm-6">
 												<div class="form-group">
 													<label>
-														<input type="radio" class="form-control" name="elevatorAccessOffloadArea" value="yes" >
+														<input type="radio" class="form-control" name="elevatorAccessOffloadArea" value="Yes" >
 														<span>Yes</span>
 													</label>
 												</div>
@@ -977,7 +977,7 @@
 											<div class="col-xs-12 col-sm-6">
 												<div class="form-group">
 													<label>
-														<input type="radio" class="form-control" name="elevatorAccessOffloadArea" value="no" >
+														<input type="radio" class="form-control" name="elevatorAccessOffloadArea" value="No" >
 														<span>No</span>
 													</label>
 												</div>
